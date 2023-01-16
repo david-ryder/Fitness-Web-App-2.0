@@ -6,11 +6,16 @@ export default function Header() {
         <div style={{
             width: "100%",
             height: "fit-content",
-            display: "inline-block"
+            display: "flex",
+            flexDirection: "row",
+            backgroundColor: " 	rgb(0, 100, 255)",
+            gap: "20px",
+            padding: "15px"
         }}>
-            <Link to='/login'>Login</Link>
-            <br />
-            <Link to='/register'>Register</Link>
+
+            <Link className='links' to='/'>Home</Link>
+            <Link className='links' to='/register'>Register</Link>
+            <Link className='links' to='/login'>Login</Link>
         </div>
     )
 }
