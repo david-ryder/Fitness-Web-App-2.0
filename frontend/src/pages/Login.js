@@ -78,7 +78,7 @@ export default function Login() {
                 <input type="submit" value="Submit"></input>
             </form>
 
-            {isLoggedIn && <text style={{color: "green"}}>Successfully logged in!</text>}
+            {isLoggedIn && <text style={{color: "green"}}>Authentication success!</text>}
         </div>
     )
 }

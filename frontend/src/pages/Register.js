@@ -6,6 +6,9 @@ export default function Register() {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [emailError, setEmailError] = useState(false)
+    const [usernameError, setUsernameError] = useState(false)
+    const [isLoggedIn, setLoginStatus] = useState(Boolean = false)
 
     function handleEmail(e) {
         setEmail(e.target.value)
@@ -21,7 +24,6 @@ export default function Register() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        console.log("Creating user with \nemail: ", email, "\nusername: ", username, "\npassword: ", password)
         registerUser()
     }
 
@@ -30,13 +32,46 @@ export default function Register() {
             email: email,
             username: username,
             password: password,
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        })
+        // Success
+        .then(response => {
+            setEmailError(false)
+            setUsernameError(false)
+            setLoginStatus(true)
+        })
+        // Failure
+        .catch(error => {
+
+            // Check if email was the problem
+            axios.get(`http://localhost:8000/api/users/`)
+            .then(response => {
+                const user = response.data.find(user => user.email === email)
+                if (user) {
+                    setEmailError(true)
+                }
+                else {
+                    setEmailError(false)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+            // Check if username was the problem
+            axios.get(`http://localhost:8000/api/users/`)
+            .then(response => {
+                const user = response.data.find(user => user.username === username)
+                if (user) {
+                    setUsernameError(true)
+                }
+                else {
+                    setUsernameError(false)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        });
     }
 
     return (
@@ -51,19 +86,29 @@ export default function Register() {
             <form onSubmit={handleSubmit} style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "5px"
+                gap: "15px"
             }}>
-                <label htmlFor="email">Email</label>
-                <input type="email" value={email} onChange={handleEmail}></input>
-                <br />
-                <label htmlFor="username">Username</label>
-                <input type="text" value={username} onChange={handleUsername}></input>
-                <br />
-                <label htmlFor="password">Password</label>
-                <input type="password" value={password} onChange={handlePassword}></input>
-                <br />
+                <div>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" value={email} onChange={handleEmail} style={{boxSizing: "border-box", width: "100%"}}></input>
+                    {emailError && <text style={{color: "red"}}>This email is already in use</text>}
+                </div>
+
+                <div>
+                    <label htmlFor="username">Username</label>
+                    <input type="text" value={username} onChange={handleUsername} style={{boxSizing: "border-box", width: "100%"}}></input>
+                    {usernameError && <text style={{color: "red"}}>This username is already in use</text>}
+                </div>
+                
+                <div>
+                    <label htmlFor="password">Password</label>
+                    <input type="password" value={password} onChange={handlePassword} style={{boxSizing: "border-box", width: "100%"}}></input>
+                </div>
+
                 <input type="submit" value="Create Account"></input>
             </form>
+
+            {isLoggedIn && <text style={{color: "green"}}>Authentication success!</text>}
         </div>
     )
 }
