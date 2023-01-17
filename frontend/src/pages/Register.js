@@ -51,7 +51,7 @@ export default function Register() {
             <form onSubmit={handleSubmit} style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "10px"
+                gap: "5px"
             }}>
                 <label htmlFor="email">Email</label>
                 <input type="email" value={email} onChange={handleEmail}></input>

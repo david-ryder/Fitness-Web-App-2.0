@@ -6,6 +6,8 @@ export default function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [isLoggedIn, setLoginStatus] = useState(Boolean = false)
+    const [usernameError, setUsernameError] = useState(Boolean = false)
+    const [passwordError, setPasswordError] = useState(Boolean = false)
 
     useEffect(() =>  {
         if (isLoggedIn === true) {
@@ -33,14 +35,16 @@ export default function Login() {
             let user = response.data.find(user => user.username === username)
             
             if (password === user.password) {
+                setPasswordError(false)
                 setLoginStatus(true)
             }
             else {
-                console.log("Incorrect password")
+                setUsernameError(false)
+                setPasswordError(true)
             }
         })
         .catch(function (error) {
-            console.log("User does not exist")
+            setUsernameError(true)
         })
     }
 
@@ -56,18 +60,25 @@ export default function Login() {
             <form onSubmit={handleSubmit} style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "10px"
+                gap: "15px"
             }}>
-                <label htmlFor="username">Username</label>
-                <input type="text" value={username} onChange={handleUsernameChange}></input>
-                <br />
+                <div>
+                    <label htmlFor="username">Username</label>
+                    <input type="text" value={username} onChange={handleUsernameChange} style={{boxSizing: "border-box", width: "100%"}}></input>
+                    {usernameError && <text style={{color: "red"}}>This username does not exist in the database</text>}
+                </div>
 
-                <label htmlFor="password">Password</label>
-                <input type="password" value={password} onChange={handlePasswordChange}></input>
-                <br />
+                <div>
+                    <label htmlFor="password">Password</label>
+                    <br />
+                    <input type="password" value={password} onChange={handlePasswordChange} style={{boxSizing: "border-box", width: "100%"}}></input>
+                    {passwordError && <text style={{color: "red"}}>Incorrect password</text>}
+                </div>
                 
                 <input type="submit" value="Submit"></input>
             </form>
+
+            {isLoggedIn && <text style={{color: "green"}}>Successfully logged in!</text>}
         </div>
     )
 }
