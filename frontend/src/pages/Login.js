@@ -36,6 +36,7 @@ export default function Login() {
             
             if (password === user.password) {
                 setPasswordError(false)
+                setUsernameError(false)
                 setLoginStatus(true)
             }
             else {
@@ -49,11 +50,11 @@ export default function Login() {
     }
 
     return (
-        <div style={{
+        <div className="content" style={{
             justifyContent: "center",
             margin: "auto",
             maxWidth: "500px",
-            width: "50%",
+            width: "80%",
             // border: "5px solid black"
         }}>
             <h1>Login</h1>
@@ -65,20 +66,19 @@ export default function Login() {
                 <div>
                     <label htmlFor="username">Username</label>
                     <input type="text" value={username} onChange={handleUsernameChange} style={{boxSizing: "border-box", width: "100%"}}></input>
-                    {usernameError && <text style={{color: "red"}}>This username does not exist in the database</text>}
+                    {usernameError && <p style={{color: "red"}}>This username does not exist in the database</p>}
                 </div>
 
                 <div>
                     <label htmlFor="password">Password</label>
                     <br />
                     <input type="password" value={password} onChange={handlePasswordChange} style={{boxSizing: "border-box", width: "100%"}}></input>
-                    {passwordError && <text style={{color: "red"}}>Incorrect password</text>}
+                    {passwordError && <p style={{color: "red"}}>Incorrect password</p>}
                 </div>
                 
                 <input type="submit" value="Submit"></input>
+                {isLoggedIn && <p style={{color: "green"}}>Authentication success!</p>}
             </form>
-
-            {isLoggedIn && <text style={{color: "green"}}>Authentication success!</text>}
         </div>
     )
 }

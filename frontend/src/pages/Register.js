@@ -75,11 +75,11 @@ export default function Register() {
     }
 
     return (
-        <div style={{
+        <div className="content" style={{
             justifyContent: "center",
             margin: "auto",
             maxWidth: "500px",
-            width: "50%",
+            width: "80%",
             // border: "5px solid black"
         }}>
             <h1>Register</h1>
@@ -91,13 +91,13 @@ export default function Register() {
                 <div>
                     <label htmlFor="email">Email</label>
                     <input type="email" value={email} onChange={handleEmail} style={{boxSizing: "border-box", width: "100%"}}></input>
-                    {emailError && <text style={{color: "red"}}>This email is already in use</text>}
+                    {emailError && <p style={{color: "red"}}>This email is already in use</p>}
                 </div>
 
                 <div>
                     <label htmlFor="username">Username</label>
                     <input type="text" value={username} onChange={handleUsername} style={{boxSizing: "border-box", width: "100%"}}></input>
-                    {usernameError && <text style={{color: "red"}}>This username is already in use</text>}
+                    {usernameError && <p style={{color: "red"}}>This username is already in use</p>}
                 </div>
                 
                 <div>
@@ -106,9 +106,8 @@ export default function Register() {
                 </div>
 
                 <input type="submit" value="Create Account"></input>
+                {isLoggedIn && <p style={{color: "green"}}>Authentication success!</p>}
             </form>
-
-            {isLoggedIn && <text style={{color: "green"}}>Authentication success!</text>}
         </div>
     )
 }
