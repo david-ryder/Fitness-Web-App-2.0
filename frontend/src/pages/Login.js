@@ -6,9 +6,9 @@ export default function Login() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [isLoggedIn, setLoginStatus] = useState(Boolean = false)
-    const [usernameError, setUsernameError] = useState(Boolean = false)
-    const [passwordError, setPasswordError] = useState(Boolean = false)
+    const [isLoggedIn, setLoginStatus] = useState(false)
+    const [usernameError, setUsernameError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
     const navigate = useNavigate();
 
     useEffect(() =>  {
@@ -16,7 +16,7 @@ export default function Login() {
             console.log("Logging in")
             navigate(`/${username}`)
         }
-    }, [isLoggedIn, navigate]);
+    });
 
     function handleUsernameChange(e) {
         setUsername(e.target.value)
