@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Login() {
 
@@ -8,12 +9,14 @@ export default function Login() {
     const [isLoggedIn, setLoginStatus] = useState(Boolean = false)
     const [usernameError, setUsernameError] = useState(Boolean = false)
     const [passwordError, setPasswordError] = useState(Boolean = false)
+    const navigate = useNavigate();
 
     useEffect(() =>  {
         if (isLoggedIn === true) {
             console.log("Logging in")
+            navigate(`/${username}`)
         }
-    })
+    }, [isLoggedIn, navigate]);
 
     function handleUsernameChange(e) {
         setUsername(e.target.value)

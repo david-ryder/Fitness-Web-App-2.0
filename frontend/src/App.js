@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import UserHome from './pages/UserHome';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
               <Route exact path='/' element={<Home />} />
               <Route exact path='/register' element={<Register />} />
               <Route exact path='/login' element={<Login />} />
+              <Route exact path='/:username' element={<UserHome />} />
             </Routes>
         </BrowserRouter>
     )
